@@ -8,6 +8,18 @@
     <link href="Bootstrap/css/bootstrap.css" rel="stylesheet">
   </head>
   <body>  
+    <?php
+      require 'login.php';
+      // conection à la base de données avec test si il y a une erreur
+      try
+      {
+        $db = new PDO("mysql:host = $host;dbname = $db;charset=utf8",$user,$pw);
+      }
+      catch (Exception $e)
+      {
+         die('Erreur : ' . $e->getMessage());
+      }
+    ?>
     <div class="container">
       <h1>Ajout d'un pompier</h1>
       <form method="post"  id="form"  novalidate> 
@@ -45,7 +57,7 @@
           </div>
 
           <!-- Boutons radio -->
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-12">
             <label class="md-3" for="sexe">Sexe  :</label>
             <div class="custom-control custom-radio custom-control-inline">
               <input type="radio" class="custom-control-input" id="sexef" name="sexe" value="féminin">
@@ -65,10 +77,12 @@
             <label for="grade">Grade</label>
             <div class="form-group">
               <select class="form-control" id="grade">
-                <option value="Capitaine">Capitaine</option>
-                <option value="Sergent">Sergent</option>
-                <option value="Caporal">Caporal</option>
-                <option value="Première classe">Première classe</option>
+                <?php
+                  $listeGrade = "SELECT LblGrade FROM DSC.Grade;";
+                  foreach  ($db->query($listeGrade) as $row) {
+                    echo '<option value="'.$row[LblGrade].'">'.ucwords($row[LblGrade]).'</option>';
+                  }
+                ?>
               </select>
             </div>
             <div class="invalid-feedback">
@@ -77,16 +91,15 @@
           </div>
 
           <div class="form-group col-md-6">
-            <label for="tel">Téléphone</label>
-            <input type="tel" class="form-control" name="tel" id="tel">
-          </div>
-          <div class="form-group col-md-6">
             <label for="caserne">Caserne</label>
             <div class="form-group">
               <select class="form-control" id="caserne">
-                <option >Oussant</option>
-                <option >Carcassonne</option>
-                <option >Toulouse</option>
+                <?php
+                  $listeCaserne = "SELECT NomCaserne FROM DSC.Caserne;";
+                  foreach  ($db->query($listeCaserne) as $row) {
+                    echo '<option value="'.$row[NomCaserne].'">'.ucwords($row[NomCaserne]).'</option>';
+                  }
+                ?>
               </select>
             </div>
             <div class="invalid-feedback">
@@ -94,7 +107,7 @@
             </div>
           </div>
 
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-12">
             <label class="md-3" for="type">Type pompier  :</label>
             <div class="custom-control custom-radio custom-control-inline">
               <input type="radio" class="custom-control-input" id="pro" name="type" value="professionnel">
@@ -108,10 +121,9 @@
               Le type est obligatoire
             </div>
           </div>
-        </div>
-
+        </div>  
         <input type="submit" value="Valider" class="btn btn-primary" name="valider" />
-        
+
       </form>
     </div>
 
