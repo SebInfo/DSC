@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ajoutPompier</title>
+    <title>Ajout d'un pompier</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Liaison au fichier css de Bootstrap -->
     <link href="Bootstrap/css/bootstrap.css" rel="stylesheet">
     <script>
-        function aff_cach_input(action){ //la fonction JS
-            if (action == "volontaire") //on regarde si tu veux afficher ou cacher le input
-            {
-                document.getElementById('blockVolontaire').style.display="inline"; //Si oui, on l'affiche
-                document.getElementById('blockPro').style.display="none"; 
-            }
-            else if (action == "pro")
-            {
-                document.getElementById('blockVolontaire').style.display="none"; 
-                document.getElementById('blockPro').style.display="inline"; 
-            }
-                  return true;
+      function aff_cach_input(action){ 
+        // Cas volontaire (bouton radio)
+        if (action == "volontaire") 
+        {
+            document.getElementById('blockVolontaire').style.display="inline"; 
+            document.getElementById('blockPro').style.display="none"; 
         }
+        else if (action == "pro")
+        // Cas professionnel (bouton radio)
+        {
+            document.getElementById('blockVolontaire').style.display="none"; 
+            document.getElementById('blockPro').style.display="inline"; 
+        }
+        return true;
+      }
     </script>
   </head>
-<body>  
+  <body>  
   <?php
     // conection à la base de données avec test si il y a une erreur
     try
@@ -35,7 +37,9 @@
     }
   ?>
   <div class="container">
+
     <h1>Ajout Pompier</h1>
+
     <form method="post"  id="form"  novalidate>
       <div class="form-row">
         <div class="form-control-group col-md-6">
@@ -82,6 +86,7 @@
             Le sexe est obligatoire
           </div>
         </div>
+
         <!-- Liste déroulante -->
         <div class="form-group col-md-6">
           <label for="grade">Grade</label>
@@ -104,6 +109,7 @@
           <label for="tel">Téléphone</label>
           <input type="tel" class="form-control" name="tel" id="tel">
         </div>
+
         <div class="form-group col-md-6">
           <label for="caserne">Caserne</label>
           <div class="form-group">
@@ -186,19 +192,18 @@
           </div>
         </div> 
       </div>
-        <div class="form-row">
-          <input type="submit" value="Valider" class="btn btn-primary" name="valider" />
-        </div>
 
-        <script>
-                aff_cach_input('volontaire');
-          </script>
-      </form>
+      <div class="form-row">
+        <input type="submit" value="Valider" class="btn btn-primary" name="valider" />
+      </div>
+
+      <script>
+              aff_cach_input('volontaire');
+      </script>
+      
+    </form>
   </div>
 
-
-
-  
   <script>
   (function() {
     "use strict"
@@ -214,12 +219,10 @@
     }, false)
   }())
   </script>
-
- 
-</body>
+  </body>
 </html>
 
-<!-- Les liaisons aux scripts -->
+<!-- Les liaisons aux scripts bootstrap -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
